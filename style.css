@@ -210,26 +210,47 @@ body, html { width: 100%; height: 100vh; background-color: #000; color: #fff; fo
 .upload-box input { padding: 12px; background: #111; border: 1px solid #333; border-radius: 6px; color: #fff; outline: none; }
 .upload-actions { display: flex; gap: 10px; }
 .cancel-btn { background: #444 !important; }
-/* Адаптивність для мобільних пристроїв (на весь екран, як TikTok) */
 @media (max-width: 768px) {
+    body, html {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .main-layout {
+        width: 100vw !important;
+        height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
     .left-sidebar, .desktop-scroll-controls, .top-header-right {
         display: none !important;
     }
     .content-container {
-        width: 100vw;
-        height: 100vh;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     .video-feed {
+        width: 100vw !important;
+        height: 100vh !important;
         max-width: 100% !important;
-        height: 100vh;
+    }
+    .video-card {
+        width: 100vw !important;
+        height: 100vh !important;
     }
     .video-wrapper {
-        width: 100% !important;
+        width: 100vw !important;
         height: 100vh !important;
         border-radius: 0 !important;
     }
-    .video-actions {
-        right: 15px !important;
-        bottom: 25px !important;
+    .video-wrapper video {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
     }
 }
