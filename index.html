@@ -3,27 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мій Відео-сайт</title>
+    <title>ShevTOK - Make Your Day</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Моя Відео Платформа</h1>
-    </header>
 
-    <main>
-        <!-- Форма для завантаження відео -->
-        <section class="upload-section">
-            <h3>Завантажити відео</h3>
+    <!-- Модальне вікно авторизації / реєстрації (викликається за потреби) -->
+    <div id="auth-modal" class="auth-modal hidden">
+        <div class="auth-box">
+            <button class="close-auth-btn" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="authTitle">Вхід у ShevTOK</h2>
+            <p id="authSubtitle" class="auth-subtitle">Увійдіть або зареєструйтеся, щоб взаємодіяти з контентом</p>
+
+            <input type="text" id="usernameInput" placeholder="Логін (нікнейм)">
+            <input type="password" id="passwordInput" placeholder="Пароль">
+
+            <button id="authActionBtn" onclick="handleAuth()">Увійти</button>
+            <button id="switchAuthModeBtn" class="switch-mode-btn" onclick="switchAuthMode()">Немає акаунта? Зареєструватися</button>
+        </div>
+    </div>
+
+    <!-- Модальне вікно коментарів -->
+    <div id="comments-modal" class="comments-modal hidden">
+        <div class="comments-box">
+            <div class="comments-header">
+                <h3>Коментарі</h3>
+                <button onclick="closeComments()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="commentsList" class="comments-list"></div>
+            <div class="add-comment-area">
+                <input type="text" id="commentInput" placeholder="Напишіть коментар...">
+                <button onclick="addComment()">Надіслати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Головний макет сайту (доступний усім) -->
+    <div class="main-layout">
+
+        <!-- ЛІВА ПАНЕЛЬ НАВІГАЦІЇ -->
+        <nav class="left-sidebar">
+            <div class="logo">
+                <span class="shev-part">Shev</span><span class="tok-part">TOK</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="#" class="active"><i class="fa-solid fa-house"></i> Для тебе</a>
+                <a href="#"><i class="fa-solid fa-compass"></i> Див. інше</a>
+                <a href="#"><i class="fa-solid fa-user-group"></i> Слідкування</a>
+                <a href="#"><i class="fa-solid fa-video"></i> Мінісеріали</a>
+                <a href="#"><i class="fa-solid fa-tower-broadcast"></i> LIVE-трансляція</a>
+                <a href="#" onclick="openUploadModal()"><i class="fa-solid fa-square-plus"></i> Завантажити</a>
+                <a href="#" id="myProfileLink" onclick="openMyProfile()"><i class="fa-solid fa-user"></i> Профіль</a>
+            </div>
+
+            <div class="sidebar-login">
+                <button id="authBtn" class="login-btn-red" onclick="toggleAuthBtn()">Увійти</button>
+            </div>
+        </nav>
+
+        <!-- ЦЕНТРАЛЬНИЙ КОНТЕЙНЕР -->
+        <main class="content-container">
+            <div class="top-header-right">
+                <button class="header-btn" onclick="openUploadModal()"><i class="fa-solid fa-plus"></i> Завантажити</button>
+                <button id="headerAuthBtn" class="header-login-btn" onclick="toggleAuthBtn()">Увійти</button>
+            </div>
+
+            <div id="feed" class="video-feed"></div>
+        </main>
+
+        <!-- ПРАВІ СТРІЛКИ ГОРТАННЯ -->
+        <div class="desktop-scroll-controls">
+            <button onclick="scrollFeed('up')"><i class="fa-solid fa-chevron-up"></i></button>
+            <button onclick="scrollFeed('down')"><i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНЕ ВІКНО ПРОФІЛЮ -->
+    <div id="profile-modal" class="profile-modal hidden">
+        <div class="profile-box">
+            <button class="close-profile-btn" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="profile-header">
+                <div class="profile-avatar-large" id="profileAvatarLarge">U</div>
+                <h2 id="profileUsername">@user</h2>
+                <button class="follow-btn" onclick="toggleFollow(this)">Стежити</button>
+            </div>
+            <div class="profile-stats">
+                <div><strong id="profileVideosCount">0</strong><span>Відео</span></div>
+                <div><strong>1.2K</strong><span>Стежать</span></div>
+                <div><strong>4.8K</strong><span>Вподобайки</span></div>
+            </div>
+            <hr class="profile-divider">
+            <h3>Відео користувача:</h3>
+            <div id="profileGrid" class="profile-grid"></div>
+        </div>
+    </div>
+
+    <!-- ЗАВАНТАЖЕННЯ ВІДЕО -->
+    <div id="upload-modal" class="upload-modal hidden">
+        <div class="upload-box">
+            <h3>Завантажити відео у ShevTOK</h3>
             <input type="file" id="videoInput" accept="video/*">
-            <button onclick="uploadVideo()">Опублікувати</button>
-        </section>
-
-        <!-- Стрічка відео -->
-        <section id="feed" class="video-feed">
-            <p>Тут з'являтимуться відео...</p>
-        </section>
-    </main>
+            <input type="text" id="videoCaption" placeholder="Опис відео...">
+            <div class="upload-actions">
+                <button onclick="uploadVideo()">Опублікувати</button>
+                <button onclick="closeUploadModal()" class="cancel-btn">Скасувати</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
