@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій Відео-сайт</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Моя Відео Платформа</h1>
+    </header>
+
+    <main>
+        <!-- Форма для завантаження відео -->
+        <section class="upload-section">
+            <h3>Завантажити відео</h3>
+            <input type="file" id="videoInput" accept="video/*">
+            <button onclick="uploadVideo()">Опублікувати</button>
+        </section>
+
+        <!-- Стрічка відео -->
+        <section id="feed" class="video-feed">
+            <p>Тут з'являтимуться відео...</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
